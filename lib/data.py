@@ -81,3 +81,40 @@ def get_splitted_data(data_dir, split=0.7, check_id_sets=False, use_center_image
         
 
     return X_train_fe, X_train_ci, X_train_ri, y_train, X_test_fe, X_test_ci, X_test_ri, y_test, species, num_classes, train_ids, test_ids
+
+
+def get_submission_data(data_dir, use_center_images=False, use_resize_images=False, verbose=0):
+
+    # read train features
+    data = pd.read_csv(data_dir+"/test.csv").sort_values("id")
+    submission_ids = data.id.sort_values().values
+
+    # read shape features and selected train data
+    shapes = pd.read_csv(data_dir+"/shapes.csv", index_col=0).sort_values("id")
+    shapes = shapes[shapes.id.isin(submission_ids)]
+    shapes = shapes.reset_index(drop=True)
+          
+    # split features
+    train_features = data[data.id.isin(submission_ids)]
+
+    # split shapes
+    train_shapes = shapes[shapes.id.isin(submission_ids)]
+  
+    train_features["image_height"] = train_shapes["image_height"]
+    train_features["image_width"] = train_shapes["image_width"]
+
+    X_fe = None
+    X_ci = None
+    X_ri = None
+    
+    if use_center_images:
+        pass
+    
+    if use_resize_images:
+        pass
+
+    # prepare feature arrays
+    cols = [i for i in train_features.columns if "target" not in i]
+    X_fe = train_features[cols].values
+        
+    return X_fe, X_ci, X_ri, submission_ids
