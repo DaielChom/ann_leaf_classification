@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 
+from skimage import io
+
 def get_splitted_data(data_dir, split=0.7, check_id_sets=False, use_center_images=False, use_resize_images=False, verbose=0):
 
     # read train features
@@ -42,7 +44,11 @@ def get_splitted_data(data_dir, split=0.7, check_id_sets=False, use_center_image
     test_features.loc[:, "target"] = test_features.species.apply(set_target).values
 
     _ = train_features.pop("species")
+    _ = train_features.pop("id")
+
     _ = test_features.pop("species")
+    _ = test_features.pop("id")
+
 
     # split shapes
     train_shapes = shapes[shapes.id.isin(train_ids)]
@@ -68,7 +74,14 @@ def get_splitted_data(data_dir, split=0.7, check_id_sets=False, use_center_image
         pass
     
     if use_resize_images:
-        pass
+        
+        resize_images = {i:io.imread(data_dir+"/resize_image/"+str(i)+".jpg")/255 for i in data.id.values}
+        
+        train_resize_images = {i:resize_images[i] for i in resize_images if i in train_ids}
+        X_train_ri = np.array(list(train_resize_images.values()))
+
+        test_resize_images =  {i:resize_images[i] for i in resize_images if i in test_ids}
+        X_test_ri = np.array(list(test_resize_images.values()))
 
     # prepare feature arrays
     cols = [i for i in train_features.columns if "target" not in i]
