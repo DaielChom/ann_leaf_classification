@@ -17,7 +17,7 @@ def init(force_download=False):
         if os.path.exists("local"):
             shutil.rmtree("local")
         shutil.move(dirname+"/local", "local")
-        shutil.rmtree(diriname)
+        shutil.rmtree(dirname)
 
     # downloading dataset
 
