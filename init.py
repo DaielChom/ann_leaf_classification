@@ -3,7 +3,8 @@ github_repo = 'DaielChom/%s'%course_id
 zip_file_url="https://github.com/%s/archive/master.zip"%github_repo
 
 local_dir = "./local/"
-   
+dataset_dir = "./local/datasets/"
+
 import requests, zipfile, io, os, shutil
 
 # download library
@@ -28,7 +29,8 @@ def download_utils(force_download=False):
 
 # unzip the donloaded lead dataset
 def unzip_leaf_dataset():
+
+    with zipfile.ZipFile(dataset_dir+"leaf.zip", 'r') as zip_ref:
+        zip_ref.extractall(dataset_dir)
     
-    z = zipfile.ZipFile(open(local_dir+"leaf.zip"))
-    z.extractall(local_dir+"datasets/")
-    os.remove(local_dir+"leaf.zip")
+    os.remove(dataset_dir+"leaf.zip")
