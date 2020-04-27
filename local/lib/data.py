@@ -127,7 +127,7 @@ def get_submission_data(data_dir, use_center_images=False, use_resize_images=Fal
         pass
 
     # prepare feature arrays
-    cols = [i for i in train_features.columns if "target" not in i]
+    cols = [i for i in train_features.columns if i not in ["target", "id"]]
     X_fe = train_features[cols].values
         
     return X_fe, X_ci, X_ri, submission_ids
