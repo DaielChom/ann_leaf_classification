@@ -132,7 +132,7 @@ def get_submission_data(data_dir, use_center_images=False, use_resize_images=Fal
         
     return X_fe, X_ci, X_ri, submission_ids
 
-def multimodal_experiment(get_model, img_X_train, fea_X_train, img_X_test, fea_X_test, y_train, y_test, num_classes, verbose=0):
+def multimodal_experiment(get_model, img_X_train, fea_X_train, img_X_test, fea_X_test, y_train, y_test, num_classes, verbose=0, epochs=10, batch_size=15):
 
     print("Building onehot target ...", end=" ")
     y_train_oh = np.eye(num_classes)[y_train]
@@ -150,7 +150,7 @@ def multimodal_experiment(get_model, img_X_train, fea_X_train, img_X_test, fea_X
     if verbose:
         print(model.summary())
     
-    history = model.fit([img_X_train, fea_X_train], y_train_oh, epochs=10, batch_size=5, verbose=verbose)
+    history = model.fit([img_X_train, fea_X_train], y_train_oh, epochs=epochs, batch_size=batch_size, verbose=verbose)
     print("ok")
 
     print("Checking results ...")
