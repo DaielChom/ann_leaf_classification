@@ -29,6 +29,6 @@ def download_utils(force_download=False):
 # unzip the donloaded lead dataset
 def unzip_leaf_dataset():
     
-    z = zipfile.ZipFile(local_dir+"leaf.zip")
+    z = zipfile.ZipFile(open(local_dir+"leaf.zip"))
     z.extractall(local_dir+"datasets/")
     os.remove(local_dir+"leaf.zip")
