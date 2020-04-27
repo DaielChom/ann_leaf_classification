@@ -1,6 +1,8 @@
 course_id = 'ann_leaf_classification'
 github_repo = 'DaielChom/%s'%course_id
 zip_file_url="https://github.com/%s/archive/master.zip"%github_repo
+
+local_dir = "./local/"
    
 import requests, zipfile, io, os, shutil
 
@@ -24,9 +26,9 @@ def download_utils(force_download=False):
         shutil.move(dirname+"/local", "local")
         shutil.rmtree(dirname)
 
-
-def unzip_data():
+# unzip the donloaded lead dataset
+def unzip_leaf_dataset():
     
-    z = zipfile.ZipFile("./local/leaf.zip")
-    z.extractall()
-    os.remove("./local/leaf.zip")
+    z = zipfile.ZipFile(local_dir+"leaf.zip")
+    z.extractall(local_dir+"datasets/")
+    os.remove(local_dir+"leaf.zip")
