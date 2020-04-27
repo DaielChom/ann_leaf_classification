@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 from skimage import io
 
@@ -95,7 +96,6 @@ def get_splitted_data(data_dir, split=0.7, check_id_sets=False, use_center_image
 
     return X_train_fe, X_train_ci, X_train_ri, y_train, X_test_fe, X_test_ci, X_test_ri, y_test, species, num_classes, train_ids, test_ids
 
-
 def get_submission_data(data_dir, use_center_images=False, use_resize_images=False, verbose=0):
 
     # read train features
@@ -131,3 +131,39 @@ def get_submission_data(data_dir, use_center_images=False, use_resize_images=Fal
     X_fe = train_features[cols].values
         
     return X_fe, X_ci, X_ri, submission_ids
+
+def multimodal_experiment(get_model, img_X_train, fea_X_train, img_X_test, fea_X_test, y_train, y_test, num_classes, verbose=0):
+
+    print("Building onehot target ...", end=" ")
+    y_train_oh = np.eye(num_classes)[y_train]
+    y_test_oh  = np.eye(num_classes)[y_test]
+    print("ok")
+
+    print("Reshaping image ...", end=" ")
+    img_X_train = img_X_train.reshape((img_X_train.shape[0], img_X_train.shape[1], img_X_train.shape[2], 1))
+    img_X_test = img_X_test.reshape((img_X_test.shape[0], img_X_test.shape[1], img_X_test.shape[2], 1))
+    print("ok")
+
+    print("Training model ...", end=" ")
+    model = get_model(input_dim=img_X_train.shape, extra_info_dim=fea_X_train.shape[1], num_classes=num_classes)
+
+    if verbose:
+        print(model.summary())
+    
+    history = model.fit([img_X_train, fea_X_train], y_train_oh, epochs=10, batch_size=5, verbose=verbose)
+    print("ok")
+
+    print("Checking results ...")
+    plt.figure(figsize=(10,3))
+    plt.plot(history.history["loss"], label="loss", marker="o")
+    plt.plot(history.history["accuracy"], label="accuracy", marker="o")
+    plt.grid()
+    plt.legend()
+    plt.title("Train performance")
+
+    preds_train = model.predict([img_X_train, fea_X_train]).argmax(axis=1)
+    preds_test = model.predict([img_X_test, fea_X_test]).argmax(axis=1)
+
+    print("train accuracy {}".format((preds_train == y_train).mean()))
+    print("test accuracy  {}".format((preds_test == y_test).mean()))
+
