@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 from skimage import io
+from sklearn.metrics import confusion_matrix
+
 
 def get_splitted_data(data_dir, split=0.7, check_id_sets=False, use_center_images=False, use_resize_images=False, verbose=0):
 
