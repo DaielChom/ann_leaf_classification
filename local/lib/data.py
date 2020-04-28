@@ -72,7 +72,15 @@ def get_splitted_data(data_dir, split=0.7, check_id_sets=False, use_center_image
     y_test = None
 
     if use_center_images:
-        pass
+
+        center_images = {i:io.imread(data_dir+"/center_resize_image/"+str(i)+".jpg")/255 for i in data.id.values}
+        
+        train_center_images = {i:center_images[i] for i in center_images if i in train_ids}
+        X_train_ci = np.array(list(train_center_images.values()))
+
+        test_center_images =  {i:center_images[i] for i in center_images if i in test_ids}
+        X_test_ci = np.array(list(test_center_images.values()))
+
     
     if use_resize_images:
         
