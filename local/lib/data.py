@@ -168,10 +168,21 @@ def multimodal_experiment(get_model, img_X_train, fea_X_train, img_X_test, fea_X
     plt.grid()
     plt.legend()
     plt.title("Train performance")
+    plt.show()
 
     preds_train = model.predict([img_X_train, fea_X_train]).argmax(axis=1)
     preds_test = model.predict([img_X_test, fea_X_test]).argmax(axis=1)
 
     print("train accuracy {}".format((preds_train == y_train).mean()))
     print("test accuracy  {}".format((preds_test == y_test).mean()))
+
+
+    cm = confusion_matrix(y_pred=preds_test, y_true=y_test)
+
+    plt.figure(figsize=(6,6))
+    plt.imshow(cm, aspect="auto", cmap="Blues")
+    plt.title("confusion matrix")
+    plt.xlabel("y_true")
+    plt.ylabel("y_pred")
+    plt.show()
 
