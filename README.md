@@ -1,5 +1,5 @@
 # Leaf classification using ANNs
-This repository tries to solve the classification task in the kaggle's competition **[leaf_classification](https://www.kaggle.com/c/leaf-classification/overview)** using artificial neural networks.
+This repository tries to solve the classification task in the kaggle's competition **[leaf_classification](https://www.kaggle.com/c/leaf-classification/overview)** using artificial neural networks. This task consist in classify leaf samples in 99 differents species. There are images and features data for each leaf sample.
 
 ### Guideline
 You can run each notebook in `Google Colab`. If you are in a local environment  you have to install the `requirements.txt` packages and run the notebook `01 - Get data.ipynb`.
