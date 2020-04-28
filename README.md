@@ -1,18 +1,18 @@
 # Leaf classification using ANNs
-This repositorie tries to solve the classification task in the kaggle's competition **[leaf_classification](https://www.kaggle.com/c/leaf-classification/overview)** using artifitial neural networks.
+This repository tries to solve the classification task in the kaggle's competition **[leaf_classification](https://www.kaggle.com/c/leaf-classification/overview)** using artificial neural networks.
 
 ### Guideline
-You can run each notebook in `Google Colab`. If you are in a local envirement you have to install the `requirements.txt` packages and run the notebook `01 - Get data.ipynb`.
+You can run each notebook in `Google Colab`. If you are in a local environment  you have to install the `requirements.txt` packages and run the notebook `01 - Get data.ipynb`.
 
 ### Content
 
-* **Notebook 01:** Run if you are in a local envirement to download and prepare the datasets necessary in the rest of notebooks.
+* **Notebook 01:** Run if you are in a local environment  to download and prepare the datasets necessary in the rest of notebooks.
 
 * **Notebook 02:** A data exploration of leaf_classification dataset. In this notebook you can explore the distributions and correlation of the data.
 
 * **Notebook 03:** A set of functions to split the data between train and test sets keeping a class balance in each set.
 
-* **Notebook 04:** ML basic model tested in the leaf_classification problem. The performance of this model can be compared with the deep learning approachs.
+* **Notebook 04:** ML basic model tested in the leaf_classification problem. The performance of this model can be compared with the deep learning approaches.
 
 * **Notebook 05:** A one-dimensional convolutional neural network model is used to classify leaves by features you should get a good precision result after training the model with the data and contracting it with the test data.
 
