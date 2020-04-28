@@ -26,6 +26,9 @@ You can run each notebook in `Google Colab`. If you are in a local environment  
 
 ### Conclusions
 
+* Baseline is the best way to solve this classification problem.
+* Images in the deep learning models apply noise in models training.
+* Use center or resize images is not relevant for the models.
 
 ### Authors
 * Andrés F. Pérez
